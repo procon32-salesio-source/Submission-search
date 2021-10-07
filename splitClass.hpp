@@ -121,67 +121,86 @@ void SplitBlock::gomi(){
         }
     }
 
-vector<pixel10> flame;
-//比較元エッジ抽出　反時計回り
-vector<pixel10> SplitBlock::getedge_up(){
-    flame.resize(data.size());
-    for(unsigned long i = 0; i < flame.size() ; i++){
-        flame[i] = data[0][i];
-    }
-    return flame;
-}
-vector<pixel10> SplitBlock::getedge_bottom(){
-    flame.resize(data.size());
-    for(unsigned long i = flame.size(); i > 0  ;){
-        i--;
-        flame[i] = data[flame.size() - 1][i];
-    }
-    return flame;
-}
-vector<pixel10> SplitBlock::getedge_right(){
-    flame.resize(data.size());
-    for(unsigned long i = 0; i < flame.size() ; i++){
-        flame[i] = data[i][flame.size() - 1];
-    }
-    return flame;
-}
-vector<pixel10> SplitBlock::getedge_left(){
-    flame.resize(data.size());
-    for(unsigned long i = flame.size(); i > 0  ;){
-        i--;
-        flame[i] = data[i][0];
-    }
-    return flame;
+int Q_data(){
+    int pool = 0;
+    
+    
+    
+    return pool;
 }
 
+vector<pixel10> flame;
+//比較元エッジ抽出　反時計回り
 //比較先エッジ抽出　反時計回り
-vector<pixel10> SplitBlock::getedge_up_r(){
-    flame.resize(data.size());
-    for(unsigned long i = flame.size(); i > 0  ;){
-        i--;
+vector<pixel10> SplitBlock::getedge_up(){
+    flame.resize(this->size);
+    for(int i = 0; i < this->size ; i++){
         flame[i] = data[0][i];
+    }
+    return flame;
+}
+vector<pixel10> SplitBlock::getedge_up_r(){
+    flame.resize(this->size);
+    int insert = 0;
+    for(int i = this->size; i > 0 ;){
+        i--;
+        flame[insert] = data[0][i];
+        insert++;
+    }
+    return flame;
+}
+////
+vector<pixel10> SplitBlock::getedge_bottom(){
+    flame.resize(this->size);
+    int insert = 0;
+    for(int i = this->size; i > 0  ;){
+        i--;
+        flame[insert] = data[this->size - 1][i];
+        insert++;
     }
     return flame;
 }
 vector<pixel10> SplitBlock::getedge_bottom_r(){
-    flame.resize(data.size());
-    for(unsigned long i = 0; i < flame.size() - 1 ; i++){
-        flame[i] = data[data.size() - 1][i];
+    flame.resize(this->size);
+    for(int i = 0; i < this->size ; i++){
+        flame[i] = data[this->size - 1][i];
     }
     return flame;
 }
+//// ok
+vector<pixel10> SplitBlock::getedge_right(){
+    flame.resize(this->size);
+    for(int i = 0; i < flame.size() ; i++){
+        flame[i] = data[i][this->size - 1];
+    }
+    return flame;
+}
+
 vector<pixel10> SplitBlock::getedge_right_r(){
-    flame.resize(data.size());
-    for(unsigned long i = 0; i < flame.size() - 1 ; i++){
-        flame[i] = data[i][0];
+    flame.resize(this->size);
+    int insert = 0;
+    for(int i = this->size; i > 0 ;){
+        i--;
+        flame[insert] = data[i][this->size - 1];
+        insert++;
+    }
+    return flame;
+}
+////
+vector<pixel10> SplitBlock::getedge_left(){
+    flame.resize(this->size);
+    int insert = 0;
+    for(int i = this->size; i > 0  ;){
+        i--;
+        flame[insert] = data[i][0];
+        insert++;
     }
     return flame;
 }
 vector<pixel10> SplitBlock::getedge_left_r(){
-    flame.resize(data.size());
-    for(unsigned long i = data.size(); i > 0 ;){
-        i--;
-        flame[i] = data[i][data.size() - 1];
+    flame.resize(this->size);
+    for(int i = 0 ; i < this->size;i++){
+        flame[i] = data[i][0];
     }
     return flame;
 }
