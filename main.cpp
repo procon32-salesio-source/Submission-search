@@ -16,7 +16,6 @@
 using namespace std; //namespace
 
 
-
 int main(){ //main
     string magic_number; //マジックナンバー
     int gridx;//分割数
@@ -41,15 +40,26 @@ int main(){ //main
     
     num_of_block=gridx*gridy;//分割画像数の計算
     
-    
+    FILE* fp;
+    char filename[256];
+    sprintf(filename, "image_data.csv");
+    fp = fopen(filename, "w");
+    for(int i = 0 ; i < data.size(); i++){
+        for(int j = 0 ; j < data.at(0).size(); j++){
+            fprintf(fp, "%d, %d, %d\n", data[i][j].r, data[i][j].g, data[i][j].b);
+        }
+    }
+    fclose(fp);
     ///
     
     int size_of_pixel = picture_width / gridx;//一つの分割画像の横、縦のサイズ。正方形なので一緒です
+    vector<vector<SplitBlock>> tagu = input_tagu( data , size_of_pixel , gridx , gridy);
     
-    vector<vector<SplitBlock>> tagu(gridy,vector<SplitBlock>(gridx)); //gridy * gridxの二次元配列でクラスのインスタンスを生成。　実際に探索を行うときに使うやつ。中身はまだ入っていない。
+    //vector<vector<SplitBlock>> tagu(gridy,vector<SplitBlock>(gridx)); //gridy * gridxの二次元配列でクラスのインスタンスを生成。　実際に探索を行うときに使うやつ。中身はまだ入っていない。
+    
     //クラスはコンストラクタの通りに初期化されている。
     //初期値代入用の変数
-    vector<vector<pixel10>> num(size_of_pixel,vector<pixel10>(size_of_pixel));//代入用配列
+    /*vector<vector<pixel10>> num(size_of_pixel,vector<pixel10>(size_of_pixel));//代入用配列
     cout << " size_of_pixel : " << size_of_pixel <<endl;
     
     //Classのインスタンスblockに値を代入する
@@ -66,13 +76,16 @@ int main(){ //main
             }
       tagu[i][j].setPixelData(num);
     }
-  }
-    //代入終了
-
-    //こっから探索（クラスの関数を使って比較を行い、 vector<vector<over>> searchdataに値を入れて、txt形式で出力。
+  }*/
+     
     
-    //vector<vector<over>> searchdata = search_1(tagu,size_of_pixel,gridx,gridy);
-    over xcv = search_corner(tagu , size_of_pixel , gridx , gridy);
-    cout << xcv.x << " " << xcv.y << " " << xcv.direct << endl;
+    //こっから探索（クラスの関数を使って比較を行い、 vector<vector<over>> searchdataに値を入れて、txt形式で出力。
+    vector<vector<over>> searchdata = main_search(tagu,size_of_pixel,gridx,gridy);
+    getchar();
+    
+    //free & main function return
+    vector<vector<over>>().swap(searchdata);
+    vector<vector<SplitBlock>>().swap(tagu);
+    return 0;
+    
 }
-
