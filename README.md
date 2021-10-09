@@ -3,7 +3,8 @@
 - Language : C++ 10.0.5
 - OS : macOS BigSur
 - IDE : Xcode
-
+- Library : siv3d 0.4.3
+- 
 
 Siv3dをUIとして現画像予測を行うプログラムのソースコードです。
 
